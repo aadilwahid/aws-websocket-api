@@ -1,0 +1,6 @@
+Resources:
+  WebSocketsBroadcastQueue:
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      QueueName: web-socket-broadcast-${self:custom.stage}
+      VisibilityTimeout: 300 #5mins

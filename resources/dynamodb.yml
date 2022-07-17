@@ -1,0 +1,21 @@
+Resources:
+  WebSocketTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: web-socket-connections-${self:custom.stage}
+      GlobalSecondaryIndexes:
+        - IndexName: baseId-index
+          KeySchema:
+            - AttributeName: baseId
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+      AttributeDefinitions:
+        - AttributeName: connectionId
+          AttributeType: S
+        - AttributeName: baseId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: connectionId
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST

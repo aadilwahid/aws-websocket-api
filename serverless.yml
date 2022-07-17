@@ -1,0 +1,46 @@
+service: web-sockets-api
+
+plugins:
+  - serverless-esbuild
+
+provider:
+  websocketsApiName: web-sockets-api
+  websocketsApiRouteSelectionExpression: $request.body.action
+  name: aws
+  region: us-east-1
+  stage: dev
+  runtime: nodejs14.x
+  environment: ${file(env.yml):${self:custom.stage}}
+  lambdaHashingVersion: '20201221'
+  iam:
+    role:
+      statements: # permissions for all of your functions can be set here
+        - Effect: Allow
+          Action: # Gives permission to DynamoDB tables
+            - logs:*
+            - dynamodb:*
+            - states:*
+            - events:*
+          Resource:
+            - '*'
+            - 'arn:aws:dynamodb:*:*:*'
+        - Effect: Allow
+          Action:
+            - sqs:*
+          Resource: 'arn:aws:sqs:${opt:region, self:provider.region}:*:*'
+
+functions: ${file(./src/functions/functions.yml)}
+
+resources:
+  - ${file(./resources/dynamodb.yml)}
+  - ${file(./resources/sqs.yml)}
+
+custom:
+  stage: '${opt:stage, self:provider.stage}'
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    target: 'node14'
+    platform: 'node'
+    concurrency: 10

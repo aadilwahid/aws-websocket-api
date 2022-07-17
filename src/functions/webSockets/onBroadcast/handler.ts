@@ -1,7 +1,7 @@
 import * as AWS from 'aws-sdk';
 import { SQSEvent } from 'aws-lambda';
 
-import { IBroadcastPayload } from './../../../models/connection';
+import { IBroadcastPayload } from '../../../models/connection';
 import {
   deleteConnection,
   listConnections

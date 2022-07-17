@@ -1,5 +1,5 @@
 onConnect:
-  handler: src/functions/websokets/onConnect/handler.onConnect
+  handler: src/functions/webSockets/onConnect/handler.onConnect
   memorySize: 128
   timeout: 10
   events:
@@ -7,7 +7,7 @@ onConnect:
         route: $connect
 
 onDisconnect:
-  handler: src/functions/websokets/onDisconnect/handler.onDisconnect
+  handler: src/functions/webSockets/onDisconnect/handler.onDisconnect
   memorySize: 128
   timeout: 10
   events:
@@ -15,7 +15,7 @@ onDisconnect:
         route: $disconnect
 
 onBroadcast:
-  handler: src/functions/websokets/onBroadcast/handler.onBroadcast
+  handler: src/functions/webSockets/onBroadcast/handler.onBroadcast
   memorySize: 256
   timeout: 60
   events:
